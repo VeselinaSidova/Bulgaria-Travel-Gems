@@ -5,6 +5,7 @@ import { ArticleComponent } from './article/article.component';
 import { MyArticlesComponent } from './my-articles/my-articles.component';
 import { ArticlesListComponent } from './articles-list/articles-list.component';
 import { LikedArticlesComponent } from './liked-articles/liked-articles.component';
+import { ArticleRoutingModule } from './article-routing.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,6 @@ import { LikedArticlesComponent } from './liked-articles/liked-articles.componen
     MyArticlesComponent,
     LikedArticlesComponent,
   ],
-  imports: [CommonModule],
+  imports: [CommonModule, ArticleRoutingModule],
 })
 export class ArticleModule {}
