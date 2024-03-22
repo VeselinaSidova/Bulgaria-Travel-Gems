@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-
+import { HeartToggleComponent } from './heart-toggle/heart-toggle.component';
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  declarations: [HeartToggleComponent],
+  imports: [CommonModule],
+  exports: [HeartToggleComponent],
 })
-export class SharedModule { }
+export class SharedModule {}

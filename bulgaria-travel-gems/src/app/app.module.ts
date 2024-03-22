@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { ArticleModule } from './article/article.module';
 import { LocationModule } from './location/location.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, ErrorComponent],
@@ -23,6 +24,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ArticleModule,
     LocationModule,
     NgbModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

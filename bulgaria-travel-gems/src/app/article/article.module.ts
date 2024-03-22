@@ -6,6 +6,7 @@ import { MyArticlesComponent } from './my-articles/my-articles.component';
 import { ArticlesListComponent } from './articles-list/articles-list.component';
 import { LikedArticlesComponent } from './liked-articles/liked-articles.component';
 import { ArticleRoutingModule } from './article-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,6 @@ import { ArticleRoutingModule } from './article-routing.module';
     MyArticlesComponent,
     LikedArticlesComponent,
   ],
-  imports: [CommonModule, ArticleRoutingModule],
+  imports: [CommonModule, ArticleRoutingModule, SharedModule],
 })
 export class ArticleModule {}
