@@ -18,5 +18,26 @@
   font-weight: 600;
 }
 
-.like {
+.card-text-two-lines {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 40px;
+  line-height: 20px;
+}
+
+.buttons-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.buttons-container a:first-child {
+  justify-self: start;
+}
+
+.buttons-container app-heart-toggle:last-child {
+  justify-self: end;
 }
