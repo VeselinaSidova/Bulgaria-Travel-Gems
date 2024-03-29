@@ -12,6 +12,7 @@ import { ArticleModule } from './article/article.module';
 import { LocationModule } from './location/location.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, ErrorComponent],
@@ -25,6 +26,7 @@ import { HttpClientModule } from '@angular/common/http';
     LocationModule,
     NgbModule,
     HttpClientModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
