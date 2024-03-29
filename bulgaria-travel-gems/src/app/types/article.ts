@@ -1,10 +1,9 @@
-import { User } from './user';
-import { Location } from './location';
-
 export interface Article {
-  id?: string;
+  _id?: string;
   title: string;
-  location: Location;
+  location: string;
+  imageUrl: string;
   content: string;
-  createdBy: User;
+  _ownerId: string;
+  _createdOn: Date;
 }
