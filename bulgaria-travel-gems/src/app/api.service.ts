@@ -24,18 +24,18 @@ export class ApiService {
   ): Observable<any> {
     const options = {
       headers: this.getHeaders(token),
-      body: JSON.stringify(data),
+      body: data,
     };
 
     switch (method) {
       case 'GET':
-        return this.http.get(url, options);
+        return this.http.get(url, { headers: this.getHeaders(token) });
       case 'POST':
-        return this.http.post(url, data, options);
+        return this.http.post(url, data, { headers: this.getHeaders(token) });
       case 'PUT':
-        return this.http.put(url, data, options);
+        return this.http.put(url, data, { headers: this.getHeaders(token) });
       case 'DELETE':
-        return this.http.delete(url, options);
+        return this.http.delete(url, { headers: this.getHeaders(token) });
       default:
         throw new Error(`Unsupported request method: ${method}`);
     }
