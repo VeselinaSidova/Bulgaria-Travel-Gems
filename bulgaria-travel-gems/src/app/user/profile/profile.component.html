@@ -4,5 +4,11 @@
     </div>
     <div class="profile-content">
         <p><strong>Email:</strong> {{ user.email }}</p>
+        <div class="btn-group" role="group" aria-label="User content links">
+            <a class="btn btn-primary" routerLink="/my-locations">My Locations</a>
+            <a class="btn btn-secondary" routerLink="/my-articles">My Articles</a>
+            <a class="btn btn-success" routerLink="/liked-articles">Liked Articles</a>
+            <a class="btn btn-info" routerLink="/wishlist">My Wishlist</a>
+        </div>
     </div>
 </div>
