@@ -12,7 +12,7 @@ import { ArticleModule } from './article/article.module';
 import { LocationModule } from './location/location.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, ErrorPageComponent],
@@ -26,7 +26,7 @@ import { FormsModule } from '@angular/forms';
     NgbModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
