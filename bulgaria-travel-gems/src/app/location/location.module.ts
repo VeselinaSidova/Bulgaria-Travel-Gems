@@ -4,12 +4,14 @@ import { LocationsListComponent } from './locations-list/locations-list.componen
 import { MyLocationsComponent } from './my-locations/my-locations.component';
 import { LocationsWishlistComponent } from './locations-wishlist/locations-wishlist.component';
 import { LocationRoutingModule } from './location-routing.module';
+import { LocationDetailsComponent } from './location-details/location-details.component';
 
 @NgModule({
   declarations: [
     LocationsListComponent,
     MyLocationsComponent,
     LocationsWishlistComponent,
+    LocationDetailsComponent,
   ],
   imports: [CommonModule, LocationRoutingModule],
 })
