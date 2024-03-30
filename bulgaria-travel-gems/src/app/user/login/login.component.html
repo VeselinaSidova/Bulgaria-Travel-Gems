@@ -6,14 +6,27 @@
                     Login
                 </div>
                 <div class="card-body">
-                    <form>
+                    <form [formGroup]="form" (ngSubmit)="login()">
                         <div class="mb-3">
                             <label for="emailInput" class="form-label">Email address</label>
-                            <input type="email" class="form-control" id="emailInput" aria-describedby="emailHelp">
+                            <input type="email" class="form-control" id="emailInput" name="email"
+                                aria-describedby="emailHelp" formControlName="email">
+                            <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="text-danger">
+                                <div *ngIf="form.get('email')?.errors?.['required']">Email is required.</div>
+                                <div *ngIf="form.get('email')?.errors?.['emailInvalid']">Please enter a valid email
+                                    address.</div>
+                            </div>
                         </div>
                         <div class="mb-3">
                             <label for="passwordInput" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="passwordInput">
+                            <input type="password" class="form-control" id="passwordInput" name="password"
+                                formControlName="password">
+                            <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+                                class="text-danger">
+                                <div *ngIf="form.get('password')?.errors?.['required']">Password is required.</div>
+                                <div *ngIf="form.get('password')?.errors?.['minlength']">Password must be at least 6
+                                    characters long.</div>
+                            </div>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
