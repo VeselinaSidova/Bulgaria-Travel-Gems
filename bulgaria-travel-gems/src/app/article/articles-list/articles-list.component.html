@@ -10,7 +10,7 @@
                 <h6 class="card-title">Where: {{article.locationId}}</h6>
                 <p class="card-text card-text-two-lines">{{article.content}}</p>
                 <div class="buttons-container">
-                    <a routerLink="/articles/{{article._id}}" class="btn btn-primary">Read more</a>
+                    <a [routerLink]="article._id" class="btn btn-primary">Read more</a>
                     <app-heart-toggle class="like" />
                 </div>
             </div>
