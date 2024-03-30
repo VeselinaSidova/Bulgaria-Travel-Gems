@@ -20,7 +20,6 @@ export class ArticlesListComponent implements OnInit {
     this.articleService.getArticles().subscribe({
       next: (articles) => {
         this.articles = articles;
-        console.log('Articles fetched successfully:', articles); // Add this line to print the articles
       },
       error: (error) => {
         console.error('Error fetching articles:', error);

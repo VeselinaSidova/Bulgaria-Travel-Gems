@@ -7,6 +7,8 @@ export interface Location {
   name: string;
   province: Province;
   region: Region;
+  distanceFromCapital: number;
   description: string;
-  articleId: string;
+  articles: string[];
+  wishlist: string[];
 }
