@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { UserService } from 'src/app/user/user.service';
 
 @Component({
@@ -12,7 +12,9 @@ export class HeaderComponent {
   isLoggedIn$: Observable<boolean>;
 
   constructor(private userService: UserService, private router: Router) {
-    this.isLoggedIn$ = this.userService.isLoggedIn$;
+    this.isLoggedIn$ = this.userService.authState$.pipe(
+      map((state) => state.isLoggedIn)
+    );
   }
 
   logout() {

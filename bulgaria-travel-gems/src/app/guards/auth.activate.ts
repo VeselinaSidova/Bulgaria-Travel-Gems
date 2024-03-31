@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from '../user/user.service';
-import { tap, map, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthActivate implements CanActivate {
@@ -17,12 +17,14 @@ export class AuthActivate implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.userService.isLoggedIn$.pipe(
+    return this.userService.authState$.pipe(
       take(1),
-      tap((isLoggedIn) => {
-        if (!isLoggedIn) {
+      map((authState) => {
+        if (!authState.isLoggedIn) {
           this.router.navigate(['/login']);
+          return false;
         }
+        return true;
       })
     );
   }

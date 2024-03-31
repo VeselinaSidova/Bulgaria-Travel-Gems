@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
+  ActivatedRouteSnapshot,
   CanActivate,
   Router,
-  ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -19,10 +19,10 @@ export class NoAuthActivate implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> {
-    return this.userService.isLoggedIn$.pipe(
+    return this.userService.authState$.pipe(
       take(1),
-      map((isLoggedIn) => {
-        if (isLoggedIn) {
+      map((authState) => {
+        if (authState.isLoggedIn) {
           this.router.navigate(['/']);
           return false;
         }
