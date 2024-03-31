@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { UserService } from 'src/app/user/user.service';
 
 @Component({
@@ -8,10 +9,16 @@ import { UserService } from 'src/app/user/user.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  constructor(private userService: UserService, private router: Router) {}
+  isLoggedIn$: Observable<boolean>;
+
+  constructor(private userService: UserService, private router: Router) {
+    this.isLoggedIn$ = this.userService.isLoggedIn$;
+  }
 
   logout() {
-    this.userService.logout();
-    this.router.navigate(['/']);
+    this.userService.logout().subscribe({
+      next: () => this.router.navigate(['/']),
+      error: () => this.router.navigate(['/']),
+    });
   }
 }

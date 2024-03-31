@@ -4,27 +4,26 @@ import {
   CanActivate,
   Router,
   RouterStateSnapshot,
-  UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { UserService } from '../user/user.service';
+import { tap, map, take } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class AuthActivate implements CanActivate {
   constructor(private userService: UserService, private router: Router) {}
+
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | boolean
-    | UrlTree
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree> {
-    const isLogged = this.userService.isLogged;
-
-    if (!isLogged) {
-      this.router.navigate(['/login']);
-    }
-    return isLogged;
+  ): Observable<boolean> {
+    return this.userService.isLoggedIn$.pipe(
+      take(1),
+      tap((isLoggedIn) => {
+        if (!isLoggedIn) {
+          this.router.navigate(['/login']);
+        }
+      })
+    );
   }
 }
