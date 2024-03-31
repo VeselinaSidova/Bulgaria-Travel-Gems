@@ -3,11 +3,23 @@ import { RouterModule, Routes } from '@angular/router';
 import { LocationsListComponent } from './locations-list/locations-list.component';
 import { MyLocationsComponent } from './my-locations/my-locations.component';
 import { LocationsWishlistComponent } from './locations-wishlist/locations-wishlist.component';
+import { AuthActivate } from '../guards/auth.activate';
 
 const routes: Routes = [
-  { path: 'locations', component: LocationsListComponent },
-  { path: 'my-locations', component: MyLocationsComponent },
-  { path: 'wishlist', component: LocationsWishlistComponent },
+  {
+    path: 'locations',
+    component: LocationsListComponent,
+  },
+  {
+    path: 'my-locations',
+    component: MyLocationsComponent,
+    canActivate: [AuthActivate],
+  },
+  {
+    path: 'wishlist',
+    component: LocationsWishlistComponent,
+    canActivate: [AuthActivate],
+  },
 ];
 
 @NgModule({
