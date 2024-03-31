@@ -28,6 +28,9 @@
                                     characters long.</div>
                             </div>
                         </div>
+                        <div *ngIf="errorMessage" class="alert alert-danger">
+                            {{ errorMessage }}
+                        </div>
                         <button [disabled]="form.invalid" [style]="{ backgroundColor: form.invalid ? 'gray': 'blue' }"
                             class="btn btn-primary">Submit</button>
                     </form>
