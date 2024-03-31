@@ -47,9 +47,6 @@ export class LoginComponent {
             this.router.navigate(['/']);
           }
         },
-        error: (error) => {
-          console.log('Login failed: ', error);
-        },
       });
   }
 }

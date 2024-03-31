@@ -1,5 +1,6 @@
 import {
   HTTP_INTERCEPTORS,
+  HttpErrorResponse,
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
@@ -7,14 +8,16 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Injectable, Provider } from '@angular/core';
-import { Observable, tap } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { Observable, catchError, tap, throwError } from 'rxjs';
+import { ErrorService } from './core/error/error.service';
+import { Router } from '@angular/router';
 
-const { baseUrl } = environment;
-
-@Injectable()
-class AppInterceptor implements HttpInterceptor {
-  usersURL = '/users';
+@Injectable({
+  providedIn: 'root',
+})
+export class AppInterceptor implements HttpInterceptor {
+  userLoginURL = '/users';
+  constructor(private router: Router, private errorService: ErrorService) {}
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -23,7 +26,7 @@ class AppInterceptor implements HttpInterceptor {
       tap((event) => {
         if (
           event instanceof HttpResponse &&
-          req.url.endsWith('/users/login') &&
+          req.url.endsWith(this.userLoginURL) &&
           event.status === 200
         ) {
           const token = event.body.accessToken;
@@ -31,13 +34,19 @@ class AppInterceptor implements HttpInterceptor {
             localStorage.setItem('auth_token', token);
           }
         }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 401) {
+          this.router.navigate(['/login']);
+        }
+        if (error.status === 403) {
+          this.errorService.setError(error);
+        } else {
+          this.errorService.setError(error);
+          this.router.navigate(['/error']);
+        }
+        return throwError(() => error);
       })
     );
   }
 }
-
-export const appInterceptorProvider: Provider = {
-  useClass: AppInterceptor,
-  multi: true,
-  provide: HTTP_INTERCEPTORS,
-};

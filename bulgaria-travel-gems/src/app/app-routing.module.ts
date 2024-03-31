@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ErrorPageComponent } from './not-found/not-found.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 import { HomeComponent } from './home/home.component';
+import { ErrorComponent } from './core/error/error.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
+  { path: 'error', component: ErrorComponent },
   { path: '**', redirectTo: '/not-found' },
-  { path: 'not-found', component: ErrorPageComponent },
+  { path: 'not-found', component: NotFoundComponent },
 ];
 
 @NgModule({
