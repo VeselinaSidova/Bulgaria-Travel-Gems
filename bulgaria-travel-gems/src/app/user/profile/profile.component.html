@@ -1,9 +1,9 @@
 <div class="profile-container">
     <div class="profile-header">
-        <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+        <h2>{{ user?.firstName }} {{ user?.lastName }}</h2>
     </div>
     <div class="profile-content">
-        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Email:</strong> {{ user?.email }}</p>
         <div class="btn-group" role="group" aria-label="User content links">
             <a class="btn btn-primary" routerLink="/my-locations">My Locations</a>
             <a class="btn btn-secondary" routerLink="/my-articles">My Articles</a>
