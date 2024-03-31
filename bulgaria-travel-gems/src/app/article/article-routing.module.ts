@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: 'add-article',
     component: AddArticleComponent,
-    //canActivate: [AuthActivate],
+    canActivate: [AuthActivate],
   },
   {
     path: 'my-articles',
