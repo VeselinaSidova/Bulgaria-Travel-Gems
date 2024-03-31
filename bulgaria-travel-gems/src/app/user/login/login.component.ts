@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { emailValidator } from 'src/app/shared/utils/email-validator';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -13,12 +15,25 @@ export class LoginComponent {
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private userService: UserService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   login(): void {
     if (this.form.invalid) {
       return;
     }
-    console.log(this.form.value);
+
+    const { email, password } = this.form.value;
+
+    if (typeof email !== 'string' && typeof password !== 'string') {
+      console.error('Email or password is missing or invalid');
+    }
+
+    this.userService.login(email!, password!).subscribe(() => {
+      this.router.navigate(['/']);
+    });
   }
 }
