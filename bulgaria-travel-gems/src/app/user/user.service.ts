@@ -1,39 +1,30 @@
 import { Injectable } from '@angular/core';
 import { User } from '../types/user';
+import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../api.service';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  user: User | undefined;
-  USER_KEY = '[user]';
+  AUTH_TOKEN_KEY = 'auth_token';
 
   get isLogged(): boolean {
-    return !!this.user;
+    return !!localStorage.getItem(this.AUTH_TOKEN_KEY);
   }
 
-  constructor() {
-    try {
-      const lsUser = localStorage.getItem(this.USER_KEY) || '';
-      this.user = JSON.parse(lsUser);
-    } catch (error) {
-      this.user = undefined;
-    }
-  }
+  constructor(private apiService: ApiService) {}
 
-  login() {
-    this.user = {
-      firstName: 'Peter',
-      lastName: 'Ivanov',
-      email: 'peter@abv.bg',
-      password: '123456',
-    };
-
-    localStorage.setItem(this.USER_KEY, JSON.stringify(this.user));
+  login(email: string, password: string) {
+    return this.apiService.request(
+      'POST',
+      `${environment.baseUrl}/users/login`,
+      { email, password }
+    );
   }
 
   logout() {
-    this.user = undefined;
-    localStorage.removeItem(this.USER_KEY);
+    localStorage.removeItem(this.AUTH_TOKEN_KEY);
   }
 }
