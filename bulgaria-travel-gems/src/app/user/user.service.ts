@@ -62,7 +62,7 @@ export class UserService {
     lastName: string,
     email: string,
     password: string
-  ): Observable<any> {
+  ): Observable<User> {
     return this.apiService.request(
       'POST',
       `${environment.baseUrl}/users/register`,
