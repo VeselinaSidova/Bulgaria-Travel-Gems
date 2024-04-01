@@ -7,6 +7,7 @@ import { LikedArticlesComponent } from './liked-articles/liked-articles.componen
 import { ArticleRoutingModule } from './article-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,11 @@ import { ArticleDetailsComponent } from './article-details/article-details.compo
     MyArticlesComponent,
     LikedArticlesComponent,
   ],
-  imports: [CommonModule, ArticleRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    ArticleRoutingModule,
+    SharedModule,
+    ReactiveFormsModule,
+  ],
 })
 export class ArticleModule {}
