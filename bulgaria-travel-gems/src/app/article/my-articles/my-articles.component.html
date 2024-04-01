@@ -1,1 +1,30 @@
-<p>my-articles works!</p>
+<div class="container">
+    <h1>My Added Articles</h1>
+    <div *ngIf="myArticles$ | async as articles" class="row">
+        <ng-container *ngIf="articles.length > 0; else noArticlesTemplate">
+            <div *ngFor="let article of articles" class="card" style="width: 25rem;">
+                <div class="image-container" style="width: 25rem;">
+                    <img src="{{article.imageUrl}}" class="card-img-top" alt="...">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{article.title | slice : 40}}</h5>
+                    <div class="card-subtitle mb-2 text-muted">
+                        <span><i class='fas fa-map-marker-alt' style='font-size:24px;color:orangered'
+                                routerLink="/locations/{{article.locationId}}"></i>
+                            {{ article.locationId | locationNameFromId | async }}</span>
+                        <span class="text-right" style="float:right;">Added {{article._createdOn! | elapsedTime}}</span>
+                    </div>
+                    <p class="card-text">{{article.content | slice: 95}}</p>
+                    <div class="buttons-container">
+                        <a [routerLink]="article._id" class="btn btn-primary">Read more</a>
+                        <app-heart-toggle class="like" />
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+    <ng-template #noArticlesTemplate>
+        <p class="text-center">No articles to display. Start by <a routerLink="/add-article">adding a new article!</a>
+        </p>
+    </ng-template>
+</div>
