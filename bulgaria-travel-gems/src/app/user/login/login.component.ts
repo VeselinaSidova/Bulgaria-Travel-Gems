@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, of, throwError } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { UserService } from '../user.service';
 import { emailValidator } from 'src/app/shared/utils/email-validator';
 
