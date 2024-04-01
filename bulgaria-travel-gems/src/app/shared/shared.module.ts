@@ -4,7 +4,6 @@ import { HeartToggleComponent } from './heart-toggle/heart-toggle.component';
 import { SlicePipe } from './pipes/slice.pipe';
 import { ElapsedTimePipe } from './pipes/elapsed-time.pipe';
 import { LocationNameFromIdPipe } from './pipes/location-name-from-id.pipe';
-import { CamelCaseToSpacePipe } from './pipes/camel-case-to-space.pipe';
 
 @NgModule({
   declarations: [
@@ -12,7 +11,6 @@ import { CamelCaseToSpacePipe } from './pipes/camel-case-to-space.pipe';
     SlicePipe,
     ElapsedTimePipe,
     LocationNameFromIdPipe,
-    CamelCaseToSpacePipe,
   ],
   imports: [CommonModule],
   exports: [
@@ -20,7 +18,6 @@ import { CamelCaseToSpacePipe } from './pipes/camel-case-to-space.pipe';
     SlicePipe,
     ElapsedTimePipe,
     LocationNameFromIdPipe,
-    CamelCaseToSpacePipe,
   ],
 })
 export class SharedModule {}
