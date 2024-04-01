@@ -6,12 +6,12 @@
                 <img src="{{ location.imageUrl }}" class="card-img-top" alt="{{ location.name }}">
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">{{ location.name }}</h5>
-                    <p class="card-text flex-grow-1">{{ location.description | slice:0:100 }}</p>
+                    <p class="card-text flex-grow-1">{{ location.description | slice : 100 }}</p>
                     <div>
                         <span class="badge bg-secondary">{{ location.province }}</span>
                         <span class="badge bg-info">{{ location.region }}</span>
                     </div>
-                    <a [routerLink]="['/locations', location.id]" class="btn btn-primary mt-3">Discover More</a>
+                    <a [routerLink]="['/locations', location._id]" class="btn btn-primary mt-3">Discover More</a>
                 </div>
                 <div class="card-footer text-muted">
                     {{ location.distanceFromCapital }} km from Sofia
