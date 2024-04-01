@@ -5,14 +5,20 @@ import { MyLocationsComponent } from './my-locations/my-locations.component';
 import { LocationsWishlistComponent } from './locations-wishlist/locations-wishlist.component';
 import { AuthActivate } from '../guards/auth.activate';
 import { LocationDetailsComponent } from './location-details/location-details.component';
+import { AddLocationComponent } from './add-location/add-location.component';
 
 const routes: Routes = [
   {
     path: 'locations',
     children: [
       { path: '', pathMatch: 'full', component: LocationsListComponent },
-      { path: ':_id', component: LocationDetailsComponent },
+      { path: ':_id', pathMatch: 'full', component: LocationDetailsComponent },
     ],
+  },
+  {
+    path: 'add-location',
+    component: AddLocationComponent,
+    canActivate: [AuthActivate],
   },
   {
     path: 'my-locations',
