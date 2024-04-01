@@ -1,1 +1,25 @@
-<p>locations-list works!</p>
+<div class="container mt-5">
+    <h1>Explore Locations</h1>
+    <div *ngIf="locations.length > 0; else noLocationsTemplate" class="row">
+        <div *ngFor="let location of locations" class="col-md-4 mb-4">
+            <div class="card h-100">
+                <img src="{{ location.imageUrl }}" class="card-img-top" alt="{{ location.name }}">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ location.name }}</h5>
+                    <p class="card-text flex-grow-1">{{ location.description | slice:0:100 }}</p>
+                    <div>
+                        <span class="badge bg-secondary">{{ location.province }}</span>
+                        <span class="badge bg-info">{{ location.region }}</span>
+                    </div>
+                    <a [routerLink]="['/locations', location.id]" class="btn btn-primary mt-3">Discover More</a>
+                </div>
+                <div class="card-footer text-muted">
+                    {{ location.distanceFromCapital }} km from Sofia
+                </div>
+            </div>
+        </div>
+    </div>
+    <ng-template #noLocationsTemplate>
+        <p class="text-center">No locations to display. Start by adding new places!</p>
+    </ng-template>
+</div>
