@@ -1,5 +1,4 @@
 import {
-  HTTP_INTERCEPTORS,
   HttpErrorResponse,
   HttpEvent,
   HttpHandler,
