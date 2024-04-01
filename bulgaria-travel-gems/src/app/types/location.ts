@@ -2,7 +2,7 @@ import { Province } from './province.enum';
 import { Region } from './region.enum';
 
 export interface Location {
-  id?: string;
+  _id?: string;
   _ownerId: string;
   name: string;
   imageUrl: string;
