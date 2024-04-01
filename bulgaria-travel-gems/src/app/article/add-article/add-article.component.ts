@@ -4,6 +4,8 @@ import { ArticleService } from '../article.service';
 import { Location } from 'src/app/types/location';
 import { LocationService } from 'src/app/location/location.service';
 import { Router } from '@angular/router';
+import { urlValidator } from 'src/app/shared/utils/url-validator';
+import { LocationValidators } from 'src/app/shared/utils/locationId-validator';
 
 @Component({
   selector: 'app-add-article',
@@ -12,10 +14,24 @@ import { Router } from '@angular/router';
 })
 export class AddArticleComponent implements OnInit {
   form = this.fb.group({
-    title: ['', [Validators.required]],
-    imageUrl: ['', [Validators.required]],
-    locationId: ['', [Validators.required]],
-    content: ['', [Validators.required]],
+    title: [
+      '',
+      [Validators.required, Validators.minLength(3), Validators.maxLength(100)],
+    ],
+    imageUrl: ['', [Validators.required, urlValidator()]],
+    locationId: [
+      '',
+      [Validators.required],
+      [LocationValidators.locationExists(this.locationService)],
+    ],
+    content: [
+      '',
+      [
+        Validators.required,
+        Validators.minLength(10),
+        Validators.maxLength(7000),
+      ],
+    ],
   });
   locations: Location[] = [];
 
