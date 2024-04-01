@@ -1,6 +1,6 @@
 <div class="container">
     <h1>Learn</h1>
-    <div class="row">
+    <div *ngIf="hasArticles; else noArticlesTemplate" class="row">
         <div *ngFor="let article of articles" class="card" style="width: 25rem;">
             <div class="image-container" style="width: 25rem;">
                 <img src="{{article.imageUrl}}" class="card-img-top" alt="...">
@@ -16,4 +16,7 @@
             </div>
         </div>
     </div>
+    <ng-template #noArticlesTemplate>
+        <p>No articles yet.</p>
+    </ng-template>
 </div>

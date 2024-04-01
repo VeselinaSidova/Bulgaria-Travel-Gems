@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AppInterceptor implements HttpInterceptor {
-  userLoginURL = '/users';
+  userLoginURL = '/users/login';
   constructor(private router: Router, private errorService: ErrorService) {}
   intercept(
     req: HttpRequest<any>,
@@ -38,11 +38,13 @@ export class AppInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           this.router.navigate(['/login']);
-        }
-        if (error.status === 403) {
-          this.errorService.setError(error);
+        } else if (
+          req.url.endsWith(this.userLoginURL) ||
+          error.status === 404
+        ) {
+          this.errorService.setError(error.message);
         } else {
-          this.errorService.setError(error);
+          this.errorService.setError('An error occurred. Please try again.');
           this.router.navigate(['/error']);
         }
         return throwError(() => error);

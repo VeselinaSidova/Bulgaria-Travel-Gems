@@ -5,12 +5,16 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class ErrorService {
-  private requestError$$ = new BehaviorSubject(null);
+  private requestError$$ = new BehaviorSubject<string | null>(null);
   public requestError$ = this.requestError$$.asObservable();
 
   constructor() {}
 
-  setError(err: any): void {
-    this.requestError$$.next(err);
+  setError(message: string): void {
+    this.requestError$$.next(message);
+  }
+
+  clearError(): void {
+    this.requestError$$.next(null);
   }
 }

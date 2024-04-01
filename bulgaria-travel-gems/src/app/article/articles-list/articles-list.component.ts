@@ -8,7 +8,8 @@ import { ArticleService } from '../article.service';
   styleUrls: ['./articles-list.component.css'],
 })
 export class ArticlesListComponent implements OnInit {
-  articles: Article[] | null = null;
+  articles: Article[] = [];
+  hasArticles: boolean = true;
 
   constructor(private articleService: ArticleService) {}
 
@@ -20,10 +21,11 @@ export class ArticlesListComponent implements OnInit {
     this.articleService.getArticles().subscribe({
       next: (articles) => {
         this.articles = articles;
+        this.hasArticles = articles.length > 0;
       },
       error: (error) => {
         console.error('Error fetching articles:', error);
-        this.articles = [];
+        this.hasArticles = false;
       },
     });
   }

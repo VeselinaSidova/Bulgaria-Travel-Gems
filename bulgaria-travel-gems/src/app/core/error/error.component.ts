@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ErrorService } from './error.service';
-import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-error',
@@ -13,14 +12,12 @@ export class ErrorComponent implements OnInit {
   constructor(private errorService: ErrorService) {}
 
   ngOnInit(): void {
-    this.errorService.requestError$.subscribe((err: any) => {
-      this.errorMessage = err?.message || null;
+    this.errorService.requestError$.subscribe((message: string | null) => {
+      this.errorMessage = message;
     });
   }
 
-  // // Optionally create a method to clear the error message
-  // clearError() {
-  //   this.errorService.clearErrorMessage();
-  //   this.errorMessage = null;
-  // }
+  clearError(): void {
+    this.errorService.clearError();
+  }
 }
