@@ -18,16 +18,6 @@
   font-weight: 600;
 }
 
-.card-text-two-lines {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  height: 40px;
-  line-height: 20px;
-}
-
 .buttons-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
