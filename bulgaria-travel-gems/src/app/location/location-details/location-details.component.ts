@@ -23,13 +23,9 @@ export class LocationDetailsComponent implements OnInit {
 
       this.locationService.getLocationById(locationId).subscribe({
         next: (location) => {
-          if (location) {
-            this.location = location;
-          } else {
-            this.router.navigate(['/not-found']);
-          }
+          this.location = location;
         },
-        error: (error) => {
+        error: () => {
           this.router.navigate(['/not-found']);
         },
       });
@@ -37,12 +33,12 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   editLocation(id: string): void {
-    // Implement your edit logic here
+    // Implement edit logic here
     console.log('Editing location', id);
   }
 
   deleteLocation(id: string): void {
-    // Implement your delete logic here
+    // Implement delete logic here
     console.log('Deleting location', id);
   }
 }
