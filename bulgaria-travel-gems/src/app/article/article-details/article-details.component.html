@@ -1,1 +1,20 @@
-<p>article-details works!</p>
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div *ngIf="article" class="card">
+                <img src="{{ article.imageUrl }}" class="card-img-top" alt="{{ article.title }}">
+                <div class="card-body">
+                    <h5 class="card-title text-center">{{ article.title }}</h5>
+                    <p class="card-text">{{ article.content }}</p>
+                    <div class="card-footer text-muted">
+                        <small>Posted on: {{ article._createdOn | date:'d MMMM y' }}</small>
+                    </div>
+                    <div class="card-body">
+                        <button class="btn btn-primary" (click)="editArticle(article._id!)">Edit</button>
+                        <button class="btn btn-danger" (click)="deleteArticle(article._id!)">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
