@@ -4,11 +4,15 @@ import { LocationsListComponent } from './locations-list/locations-list.componen
 import { MyLocationsComponent } from './my-locations/my-locations.component';
 import { LocationsWishlistComponent } from './locations-wishlist/locations-wishlist.component';
 import { AuthActivate } from '../guards/auth.activate';
+import { LocationDetailsComponent } from './location-details/location-details.component';
 
 const routes: Routes = [
   {
     path: 'locations',
-    component: LocationsListComponent,
+    children: [
+      { path: '', pathMatch: 'full', component: LocationsListComponent },
+      { path: ':_id', component: LocationDetailsComponent },
+    ],
   },
   {
     path: 'my-locations',
