@@ -5,6 +5,7 @@ export interface Location {
   id?: string;
   _ownerId: string;
   name: string;
+  imageUrl: string;
   province: Province;
   region: Region;
   distanceFromCapital: number;

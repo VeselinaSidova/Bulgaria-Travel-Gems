@@ -5,6 +5,6 @@ export interface Article {
   imageUrl: string;
   content: string;
   _ownerId: string;
-  _createdOn: Date;
+  _createdOn: number;
   liked: string[];
 }
