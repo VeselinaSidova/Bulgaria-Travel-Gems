@@ -46,6 +46,28 @@ export class ArticleService {
     );
   }
 
+  updateArticle(
+    _id: string,
+    title: string,
+    imageUrl: string,
+    locationId: string,
+    content: string
+  ): Observable<Article> {
+    const token = this.tokenAuthService.verifyToken();
+    if (typeof token !== 'string') return token;
+    return this.apiService.request(
+      'PUT',
+      `${this.apiUrl}/${_id}`,
+      {
+        title,
+        imageUrl,
+        locationId,
+        content,
+      },
+      token
+    );
+  }
+
   deleteArticle(id: string): Observable<Article> {
     const token = this.tokenAuthService.verifyToken();
     if (typeof token !== 'string') return token;

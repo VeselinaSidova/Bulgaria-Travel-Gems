@@ -2,17 +2,85 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div *ngIf="article" class="card">
-                <img src="{{ article.imageUrl }}" class="card-img-top" alt="{{ article.title }}">
+                <img *ngIf="!showEditMode" [src]="article.imageUrl" class="card-img-top" alt="{{ article.title }}">
                 <div class="card-body">
                     <h5 class="card-title text-center">{{ article.title }}</h5>
-                    <p class="card-text">{{ article.content }}</p>
-                    <div class="card-footer text-muted">
+                    <p *ngIf="!showEditMode" class="card-text">{{ article.content }}</p>
+                    <div class="card-footer text-muted" *ngIf="!showEditMode">
                         <small>Posted on: {{ article._createdOn | date:'d MMMM y' }}</small>
                     </div>
-                    <div class="card-body">
-                        <button class="btn btn-primary" (click)="editArticle(article._id!)">Edit</button>
-                        <button class="btn btn-danger" (click)="deleteArticle(article._id!)">Delete</button>
-                    </div>
+
+                    <!-- Edit Mode Form -->
+                    <form [formGroup]="form" *ngIf="showEditMode" (ngSubmit)="saveChanges()">
+                        <div class="mb-3">
+                            <label for="titleInput" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="titleInput" formControlName="title"
+                                placeholder="Enter article title">
+                            <div *ngIf="form.get('title')?.invalid && form.get('title')?.touched" class="text-danger">
+                                <div *ngIf="form.get('title')?.errors?.['required']">Title is required.</div>
+                                <div *ngIf="form.get('title')?.errors?.['minlength']">Title must be at least 3
+                                    characters long.</div>
+                                <div *ngIf="form.get('title')?.errors?.['maxlength']">Title cannot be more than
+                                    100 characters long.</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="imageUrlInput" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="imageUrlInput" formControlName="imageUrl"
+                                placeholder="Enter image URL">
+                            <div *ngIf="form.get('imageUrl')?.invalid && form.get('imageUrl')?.touched"
+                                class="text-danger">
+                                <div *ngIf="form.get('imageUrl')?.errors?.['required']">Image URL is required.</div>
+                                <div *ngIf="form.get('imageUrl')?.errors?.['urlInvalid']">Please enter a valid URL.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="locationSelect" class="form-label">Location</label>
+                            <select class="form-control" id="locationSelect" formControlName="locationId"
+                                *ngIf="locations">
+                                <option value="" disabled selected>Choose a location...</option>
+                                <option *ngFor="let location of locations" [value]="location._id">{{ location.name }}
+                                </option>
+                            </select>
+                            <div *ngIf="form.get('locationId')?.touched">
+                                <div *ngIf="form.get('locationId')?.errors?.['required']" class="text-danger">
+                                    Location is required.
+                                </div>
+                                <div *ngIf="form.get('locationId')?.errors?.['locationNotFound']" class="text-danger">
+                                    Location not found. Please select a valid location.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="contentTextArea" class="form-label">Content</label>
+                            <textarea class="form-control" id="contentTextArea" formControlName="content" rows="5"
+                                placeholder="Article content"></textarea>
+                            <div *ngIf="form.get('content')?.invalid && form.get('content')?.touched"
+                                class="text-danger">
+                                <div *ngIf="form.get('content')?.errors?.['required']">Content is required.</div>
+                                <div *ngIf="form.get('content')?.errors?.['minlength']">Content must be at least 10
+                                    characters long.</div>
+                                <div *ngIf="form.get('content')?.errors?.['maxlength']">Content cannot be more than
+                                    7000 characters long.</div>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+                            <button type="submit" class="btn btn-success" [disabled]="form.invalid">Save
+                                Changes</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Display buttons only when not in edit mode -->
+                <div class="card-body" *ngIf="!showEditMode && isOwner()">
+                    <button class="btn btn-primary" (click)="toggleEditMode()">Edit</button>
+                    <button class="btn btn-danger" (click)="deleteArticle(article._id!)">Delete</button>
                 </div>
             </div>
         </div>
