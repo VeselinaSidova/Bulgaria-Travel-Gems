@@ -5,6 +5,8 @@ import { MyLocationsComponent } from './my-locations/my-locations.component';
 import { LocationsWishlistComponent } from './locations-wishlist/locations-wishlist.component';
 import { LocationRoutingModule } from './location-routing.module';
 import { LocationDetailsComponent } from './location-details/location-details.component';
+import { AddLocationComponent } from './add-location/add-location.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +14,8 @@ import { LocationDetailsComponent } from './location-details/location-details.co
     MyLocationsComponent,
     LocationsWishlistComponent,
     LocationDetailsComponent,
+    AddLocationComponent,
   ],
-  imports: [CommonModule, LocationRoutingModule],
+  imports: [CommonModule, LocationRoutingModule, SharedModule],
 })
 export class LocationModule {}
