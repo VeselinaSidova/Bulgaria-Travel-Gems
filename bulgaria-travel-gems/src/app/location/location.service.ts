@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment.development';
 import { Location } from '../types/location';
 import { ApiService } from '../api.service';
 import { Observable } from 'rxjs';
+import { TokenAuthService } from '../shared/services/token-auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,10 @@ export class LocationService {
   private baseUrl = environment.baseUrl;
   private apiUrl = `${this.baseUrl}/data/locations`;
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private tokenAuthService: TokenAuthService
+  ) {}
 
   getLocations(): Observable<Location[]> {
     return this.apiService.request('GET', this.apiUrl);
@@ -21,7 +25,21 @@ export class LocationService {
     return this.apiService.request('GET', `${this.apiUrl}/${id}`);
   }
 
-  addLocation(location: Location): Observable<Location> {
-    return this.apiService.request('POST', this.apiUrl, location);
+  addLocation(
+    name: string,
+    imageUrl: string,
+    region: string,
+    province: string,
+    distanceFromCapital: number,
+    description: string
+  ): Observable<Location> {
+    const token = this.tokenAuthService.verifyToken();
+    if (typeof token !== 'string') return token;
+    return this.apiService.request(
+      'POST',
+      this.apiUrl,
+      { name, imageUrl, region, province, distanceFromCapital, description },
+      token
+    );
   }
 }
