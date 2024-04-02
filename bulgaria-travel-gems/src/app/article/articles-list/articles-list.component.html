@@ -1,24 +1,24 @@
-<div class="main-container">
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-12 text-center mb-4">
-                <h1>Learn</h1>
-            </div>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h1>Learn</h1>
         </div>
-        <div *ngIf="hasArticles; else noArticlesTemplate" class="row row-cols-1 row-cols-md-3 g-4">
-            <ng-container *ngIf="articles.length > 0">
-                <div class="col" *ngFor="let article of articles">
-                    <app-article-item [article]="article" [currentUser]="currentUser"
-                        (likeToggled)="onToggleLike(article._id!)"></app-article-item>
-                </div>
-            </ng-container>
-        </div>
-        <ng-template #noArticlesTemplate>
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p>No articles to display. Start by <a routerLink="/add-article">adding a new article!</a></p>
-                </div>
-            </div>
-        </ng-template>
     </div>
+
+    <div *ngIf="hasArticles; else noArticlesTemplate" class="row row-cols-1 row-cols-md-3 g-4">
+        <ng-container *ngIf="articles.length > 0">
+            <div class="col" *ngFor="let article of articles">
+                <app-article-item [article]="article" [currentUser]="currentUser"
+                    (likeToggled)="onToggleLike(article._id!)"></app-article-item>
+            </div>
+        </ng-container>
+    </div>
+
+    <ng-template #noArticlesTemplate>
+        <div class="row">
+            <div class="col-12 text-center">
+                <p>No articles to display. Start by <a routerLink="/add-article">adding a new article!</a></p>
+            </div>
+        </div>
+    </ng-template>
 </div>

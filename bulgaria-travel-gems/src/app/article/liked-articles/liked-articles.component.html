@@ -4,6 +4,7 @@
             <h1>My Liked Articles</h1>
         </div>
     </div>
+
     <div *ngIf="(likedArticles$ | async) as likedArticles; else noArticlesTemplate"
         class="row row-cols-1 row-cols-md-3 g-4">
         <ng-container *ngIf="likedArticles.length > 0; else noArticlesTemplate">
@@ -13,6 +14,7 @@
             </div>
         </ng-container>
     </div>
+
     <ng-template #noArticlesTemplate>
         <p class="text-center">No articles liked yet. Explore articles <a routerLink="/articles">here</a>.</p>
     </ng-template>
