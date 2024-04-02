@@ -11,5 +11,4 @@ export interface Location {
   distanceFromCapital: number;
   description: string;
   articles: string[];
-  wishlist: string[];
 }

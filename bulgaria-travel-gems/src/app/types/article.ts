@@ -6,5 +6,4 @@ export interface Article {
   content: string;
   _ownerId?: string;
   _createdOn?: number;
-  liked?: string[];
 }
