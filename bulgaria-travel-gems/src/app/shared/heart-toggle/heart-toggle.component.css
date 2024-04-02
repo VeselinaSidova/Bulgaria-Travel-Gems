@@ -1,3 +1,18 @@
-.toggled {
-  color: red;
+.heart-toggle-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.6em;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.heart-toggle-button:hover {
+  transform: scale(1.1);
+}
+
+.heart-toggle-button.toggled i {
+  color: orangered;
 }
