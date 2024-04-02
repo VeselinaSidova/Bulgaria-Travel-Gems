@@ -1,11 +1,23 @@
 .card-img-top {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  /* object-position: top; */
+  overflow: hidden;
 }
 
 .card-title {
   text-align: center;
   font-weight: 600;
+}
+
+.fas.fa-map-marker-alt {
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.fas.fa-map-marker-alt:hover {
+  transform: scale(1.1);
 }
 
 .buttons-container {

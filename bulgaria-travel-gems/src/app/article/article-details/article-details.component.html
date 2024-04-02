@@ -4,7 +4,8 @@
             <div *ngIf="article" class="card">
                 <img *ngIf="!showEditMode" [src]="article.imageUrl" class="card-img-top" alt="{{ article.title }}">
                 <div class="card-body">
-                    <h5 class="card-title text-center">{{ article.title }}</h5>
+                    <h5 class="card-title text-center" routerLink="/locations/{{article.locationId}}">{{ article.title
+                        }}</h5>
                     <p *ngIf="!showEditMode" class="card-text">{{ article.content }}</p>
                     <div class="card-footer text-muted" *ngIf="!showEditMode">
                         <small>Posted on: {{ article._createdOn | date:'d MMMM y' }}</small>
@@ -70,17 +71,20 @@
                         </div>
 
                         <div class="card-footer">
-                            <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
-                            <button type="submit" class="btn btn-success" [disabled]="form.invalid">Save
+                            <button type="submit" class="btn btn-success me-2" [disabled]="form.invalid">Save
                                 Changes</button>
+                            <button type="button" class="btn btn-secondary me-2" (click)="cancelEdit()">Cancel</button>
                         </div>
                     </form>
                 </div>
 
                 <!-- Display buttons only when not in edit mode -->
-                <div class="card-body" *ngIf="!showEditMode && isOwner()">
-                    <button class="btn btn-primary" (click)="toggleEditMode()">Edit</button>
-                    <button class="btn btn-danger" (click)="deleteArticle(article._id!)">Delete</button>
+                <div class="card-body" *ngIf="!showEditMode">
+                    <button class="btn btn-primary me-2" routerLink="/locations/{{article.locationId}}">Discover
+                        location</button>
+                    <button *ngIf="isOwner()" class="btn btn-secondary me-2" (click)="toggleEditMode()">Edit</button>
+                    <button *ngIf="isOwner()" class="btn btn-danger me-2"
+                        (click)="deleteArticle(article._id!)">Delete</button>
                 </div>
             </div>
         </div>

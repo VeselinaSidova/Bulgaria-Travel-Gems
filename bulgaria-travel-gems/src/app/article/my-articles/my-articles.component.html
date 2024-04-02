@@ -5,9 +5,9 @@
         </div>
     </div>
 
-    <div *ngIf="(myArticles$ | async) as myArticles; else noArticlesTemplate" class="row row-cols-1 row-cols-md-3 g-4">
-        <ng-container *ngIf="myArticles.length > 0; else noArticlesTemplate">
-            <div class="col" *ngFor="let article of myArticles">
+    <div *ngIf="(myArticles$ | async) as myArticles; else noArticlesTemplate" class="row">
+        <ng-container *ngIf="myArticles.length > 0; else noArticlesTemplate" class="col-md-4 mb-4">
+            <div class="col-md-4 mb-4" *ngFor="let article of myArticles">
                 <app-article-item [article]="article" [currentUser]="currentUser" (likeToggled)="onToggleLike($event)">
                 </app-article-item>
             </div>
