@@ -37,6 +37,7 @@ export class AppInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {
         if (error.status === 401) {
           this.router.navigate(['/login']);
+          this.errorService.setError(error.message);
         } else if (
           req.url.endsWith(this.userLoginURL) ||
           error.status === 404
