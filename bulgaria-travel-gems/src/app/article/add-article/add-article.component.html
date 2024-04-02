@@ -53,8 +53,11 @@
                                 7000 characters long.</div>
                         </div>
                     </div>
-                    <button [disabled]="form.invalid" [style]="{ backgroundColor: form.invalid ? 'gray': 'blue' }"
-                        class="btn btn-primary">Add Article</button>
+                    <div class="d-flex justify-content-center">
+                        <button [disabled]="form.invalid" class="btn btn-primary" [class.btn-disabled]="form.invalid">
+                            Add Article
+                        </button>
+                    </div>
                 </form>
             </div>
             <ng-template #noLocationsAlert>

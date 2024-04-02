@@ -1,0 +1,39 @@
+.card {
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.card-header {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.card-header,
+.card-body {
+  background-color: transparent;
+}
+
+input.form-control {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+.btn-primary {
+  background-color: #085911;
+  border: 2px solid #075d32;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0a6c39;
+}
+
+.btn-disabled,
+.btn-disabled:hover {
+  background-color: gray;
+  color: #cccccc;
+  border-color: #999999;
+  pointer-events: none;
+}

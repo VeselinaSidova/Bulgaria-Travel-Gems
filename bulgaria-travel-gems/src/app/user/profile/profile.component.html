@@ -1,13 +1,20 @@
-<div class="profile-container">
-    <div class="profile-header">
-        <h2>{{ user?.firstName }} {{ user?.lastName }}</h2>
+<div class="profile-container mt-5">
+    <div class="profile-header text-center mb-4">
+        <h2>Profile Info</h2>
     </div>
-    <div class="profile-content">
-        <p><strong>Email:</strong> {{ user?.email }}</p>
-        <div class="btn-group" role="group" aria-label="User content links">
-            <a class="btn btn-primary" routerLink="/my-locations">My Locations</a>
+    <div class="profile-content text-center mb-3">
+        <p><strong>Name: </strong>{{ user?.firstName }} {{ user?.lastName }}</p>
+        <p><strong>Email: </strong> {{ user?.email }}</p>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-auto mb-2">
+            <a class="btn btn-success" routerLink="/my-locations">My Locations</a>
+        </div>
+        <div class="col-auto mb-2">
             <a class="btn btn-secondary" routerLink="/my-articles">My Articles</a>
-            <a class="btn btn-success" routerLink="/liked-articles">Liked Articles</a>
+        </div>
+        <div class="col-auto mb-2">
+            <a class="btn btn-dark" routerLink="/liked-articles">Liked Articles</a>
         </div>
     </div>
 </div>

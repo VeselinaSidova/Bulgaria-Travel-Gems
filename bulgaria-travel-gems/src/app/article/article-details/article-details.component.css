@@ -1,3 +1,14 @@
 .container.mt-3 {
   padding-bottom: 70px;
 }
+
+.btn-discover-location {
+  background-color: #085911;
+  border: 2px solid #075d32;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+.btn-discover-location:hover {
+  background-color: #0a6c39;
+}

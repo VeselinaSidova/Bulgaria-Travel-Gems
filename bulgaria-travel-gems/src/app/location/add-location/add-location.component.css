@@ -1,0 +1,18 @@
+.btn-primary {
+  background-color: #085911;
+  color: #ffffff;
+  border: 2px solid #075d32;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0a6c39;
+}
+
+.btn-disabled,
+.btn-disabled:hover {
+  background-color: gray;
+  color: #cccccc;
+  border-color: #999999;
+  pointer-events: none;
+}

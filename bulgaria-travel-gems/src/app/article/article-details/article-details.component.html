@@ -80,7 +80,8 @@
 
                 <!-- Display buttons only when not in edit mode -->
                 <div class="card-body" *ngIf="!showEditMode">
-                    <button class="btn btn-primary me-2" routerLink="/locations/{{article.locationId}}">Discover
+                    <button class="btn btn-primary btn-discover-location me-2"
+                        routerLink="/locations/{{article.locationId}}">Discover
                         location</button>
                     <button *ngIf="isOwner()" class="btn btn-secondary me-2" (click)="toggleEditMode()">Edit</button>
                     <button *ngIf="isOwner()" class="btn btn-danger me-2"

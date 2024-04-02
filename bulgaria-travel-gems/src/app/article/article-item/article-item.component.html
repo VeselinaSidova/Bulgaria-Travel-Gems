@@ -1,19 +1,25 @@
 <div class="card h-100">
     <div class="image-container" style="height: 15rem">
         <img src="{{article.imageUrl}}" class="card-img-top" alt="{{article.title}}"
-            routerLink="/locations/{{article.locationId}}">
+            routerLink="/articles/{{article._id}}">
     </div>
     <div class="card-body d-flex flex-column">
         <h5 class="card-title">{{article.title | slice : 40}}</h5>
         <div class="card-subtitle mb-2 text-muted">
-            <span routerLink="/locations/{{article.locationId}}"><i class='fas fa-map-marker-alt'
-                    style='font-size:24px;color:orangered' routerLink="/locations/{{article.locationId}}"></i>
-                {{ article.locationId | locationNameFromId | async }}</span>
+            <span routerLink="/locations/{{article.locationId}}"
+                *ngIf="(article.locationId | locationNameFromId | async) as locationName; else locationMissing">
+                <i routerLink="/locations/{{article.locationId}}" class='fas fa-map-marker-alt'
+                    style='font-size:24px;color:orangered'></i>
+                {{ locationName }}
+            </span>
+            <ng-template #locationMissing>
+                <span>Location missing</span>
+            </ng-template>
             <span class="text-right" style="float:right;">Added {{article._createdOn! | elapsedTime}}</span>
         </div>
-        <p class="card-text flex-grow-1">{{article.content | slice: 95}}</p>
+        <p class="card-text flex-grow-1">{{article.content | slice: 100}}</p>
         <div class="buttons-container">
-            <a [routerLink]="['/articles', article._id]" class="btn btn-primary">Read more</a>
+            <a [routerLink]="['/articles', article._id]" class="btn btn-primary btn-read-more">Read more</a>
             <app-heart-toggle [isToggled]="isLiked()" (toggle)="onToggleLike()"></app-heart-toggle>
         </div>
     </div>

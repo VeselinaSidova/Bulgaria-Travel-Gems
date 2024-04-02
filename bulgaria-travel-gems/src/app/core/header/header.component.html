@@ -1,6 +1,9 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid d-flex justify-content-between">
-        <a class="navbar-brand" routerLink="">Bulgaria Travel Gems</a>
+        <a class="navbar-brand" routerLink="/">
+            <img src="../../../assets/image.png" alt="Logo" class="navbar-logo">
+            Bulgaria Travel Gems
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -8,7 +11,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-lg-center">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" routerLink="/articles">Articles</a>
+                    <a class="nav-link" aria-current="page" routerLink="/articles">Articles</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/locations">Locations</a>
@@ -36,9 +39,6 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/liked-articles">My Liked Articles</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" routerLink="/wishlist">Wishlist</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" routerLink="/profile">My Profile</a>

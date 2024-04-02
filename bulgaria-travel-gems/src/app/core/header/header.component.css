@@ -1,0 +1,42 @@
+nav.navbar {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.navbar-logo {
+  height: 50px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+  color: #085911;
+  text-decoration: none;
+}
+
+.navbar-brand:hover {
+  color: black;
+}
+
+.nav-item {
+  display: block;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 8px;
+}
+
+.nav-item:hover {
+  background-color: rgba(190, 194, 199, 0.5);
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.nav-link {
+  color: #085911;
+}
+
+.nav-link:hover {
+  color: black;
+  font-weight: bolder;
+}
