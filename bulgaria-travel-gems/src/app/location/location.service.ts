@@ -42,4 +42,29 @@ export class LocationService {
       token
     );
   }
+
+  updateLocation(
+    _id: string,
+    name: string,
+    imageUrl: string,
+    region: string,
+    province: string,
+    distanceFromCapital: number,
+    description: string
+  ): Observable<Location> {
+    const token = this.tokenAuthService.verifyToken();
+    if (typeof token !== 'string') return token;
+    return this.apiService.request(
+      'PUT',
+      `${this.apiUrl}/${_id}`,
+      { name, imageUrl, region, province, distanceFromCapital, description },
+      token
+    );
+  }
+
+  deleteLocation(id: string): Observable<Location> {
+    const token = this.tokenAuthService.verifyToken();
+    if (typeof token !== 'string') return token;
+    return this.apiService.request('DELETE', `${this.apiUrl}/${id}`, {}, token);
+  }
 }
