@@ -2,24 +2,11 @@ import { Province } from './province.enum';
 import { Region } from './region.enum';
 
 export const regionProvinceMapping: { [key in Region]: Province[] } = {
-  [Region.SouthWestern]: [
-    Province.Blagoevgrad,
-    Province.Kyustendil,
-    Province.Pernik,
-    Province.SofiaCity,
-    Province.SofiaProvince,
-  ],
-  [Region.SouthEastern]: [
-    Province.Burgas,
-    Province.Sliven,
-    Province.StaraZagora,
-    Province.Yambol,
-  ],
-  [Region.NorthEastern]: [
-    Province.Dobrich,
-    Province.Shumen,
-    Province.Targovishte,
-    Province.Varna,
+  [Region.NorthWestern]: [
+    Province.Lovech,
+    Province.Montana,
+    Province.Vidin,
+    Province.Vratsa,
   ],
   [Region.NorthCentral]: [
     Province.Gabrovo,
@@ -30,6 +17,19 @@ export const regionProvinceMapping: { [key in Region]: Province[] } = {
     Province.Silistra,
     Province.VelikoTarnovo,
   ],
+  [Region.NorthEastern]: [
+    Province.Dobrich,
+    Province.Shumen,
+    Province.Targovishte,
+    Province.Varna,
+  ],
+  [Region.SouthWestern]: [
+    Province.Blagoevgrad,
+    Province.Kyustendil,
+    Province.Pernik,
+    Province.SofiaCity,
+    Province.SofiaProvince,
+  ],
   [Region.SouthCentral]: [
     Province.Haskovo,
     Province.Kardzhali,
@@ -37,10 +37,10 @@ export const regionProvinceMapping: { [key in Region]: Province[] } = {
     Province.Plovdiv,
     Province.Smolyan,
   ],
-  [Region.NorthWestern]: [
-    Province.Lovech,
-    Province.Montana,
-    Province.Vidin,
-    Province.Vratsa,
+  [Region.SouthEastern]: [
+    Province.Burgas,
+    Province.Sliven,
+    Province.StaraZagora,
+    Province.Yambol,
   ],
 };
