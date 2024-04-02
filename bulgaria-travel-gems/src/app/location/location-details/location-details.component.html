@@ -2,20 +2,109 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div *ngIf="location" class="card">
-                <img src="{{ location.imageUrl }}" class="card-img-top" alt="Location Image">
+                <img *ngIf="!showEditMode" src="{{ location.imageUrl }}" class="card-img-top" alt="Location Image">
                 <div class="card-body">
                     <h5 class="card-title text-center">{{ location.name }}</h5>
-                    <ul class="list-group list-group-flush">
+                    <ul *ngIf="!showEditMode" class="list-group list-group-flush">
                         <li class="list-group-item">Province: {{ location.province }}</li>
                         <li class="list-group-item">Region: {{ location.region }}</li>
                         <li class="list-group-item">Distance from capital: {{ location.distanceFromCapital }} km</li>
                         <br>
                     </ul>
-                    <p class="card-text">{{ location.description }}</p>
-                    <div class="card-body">
-                        <a href="#" class="card-link btn btn-primary" (click)="editLocation(location._id!)">Edit</a>
-                        <a href="#" class="card-link btn btn-danger" (click)="deleteLocation(location._id!)">Delete</a>
-                    </div>
+                    <p *ngIf="!showEditMode" class="card-text">{{ location.description }}</p>
+                    <form *ngIf="showEditMode" [formGroup]="form" (ngSubmit)="saveChanges()">
+                        <div class="mb-3">
+                            <label for="nameInput" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="nameInput" formControlName="name"
+                                placeholder="Enter location name">
+                            <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="text-danger">
+                                <div *ngIf="form.get('name')?.errors?.['required']">Name is required.</div>
+                                <div *ngIf="form.get('name')?.errors?.['minlength']">Name must be at least 2
+                                    characters long.</div>
+                                <div *ngIf="form.get('name')?.errors?.['maxlength']">Name cannot be more than
+                                    30 characters long.</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="imageUrlInput" class="form-label">Image URL</label>
+                            <input type="url" class="form-control" id="imageUrlInput" formControlName="imageUrl"
+                                placeholder="Enter image URL">
+                            <div *ngIf="form.get('imageUrl')?.invalid && form.get('imageUrl')?.touched"
+                                class="text-danger">
+                                <div *ngIf="form.get('imageUrl')?.errors?.['required']">Image URL is required.</div>
+                                <div *ngIf="form.get('imageUrl')?.errors?.['urlInvalid']">Please enter a valid URL.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="regionSelect" class="form-label">Region</label>
+                            <select class="form-control" id="regionSelect" formControlName="region">
+                                <option value="" disabled selected>Choose a region...</option>
+                                <option *ngFor="let region of regions" [value]="region">{{ region }}</option>
+                            </select>
+                            <div *ngIf="form.get('region')?.touched">
+                                <div *ngIf="form.get('region')?.errors?.['required']" class="text-danger">
+                                    Region is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="provinceSelect" class="form-label">Province</label>
+                            <select class="form-control" id="provinceSelect" formControlName="province">
+                                <option value="" disabled selected>Choose a province...</option>
+                                <option *ngFor="let province of provinces" [value]="province">{{ province }}</option>
+                            </select>
+                            <div *ngIf="form.get('province')?.touched">
+                                <div *ngIf="form.get('province')?.errors?.['required']" class="text-danger">
+                                    Province is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="distanceFromCapitalInput" class="form-label">Distance From Capital</label>
+                            <input type="number" class="form-control" id="distanceFromCapitalInput"
+                                formControlName="distanceFromCapital" placeholder="Enter distance from Sofia">
+                            <div *ngIf="form.get('distanceFromCapital')?.invalid && form.get('distanceFromCapital')?.touched"
+                                class="text-danger">
+                                <div *ngIf="form.get('distanceFromCapital')?.errors?.['required']">Distance from capital
+                                    is
+                                    required.</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="descriptionTextArea" class="form-label">Description</label>
+                            <textarea class="form-control" id="descriptionTextArea" formControlName="description"
+                                rows="5" placeholder="Location description"></textarea>
+                            <div *ngIf="form.get('description')?.invalid && form.get('description')?.touched"
+                                class="text-danger">
+                                <div *ngIf="form.get('description')?.errors?.['required']">Description is required.
+                                </div>
+                                <div *ngIf="form.get('description')?.errors?.['minlength']">Description must be at least
+                                    10
+                                    characters long.</div>
+                                <div *ngIf="form.get('description')?.errors?.['maxlength']">Description cannot be more
+                                    than
+                                    5000 characters long.</div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-success me-2" [disabled]="form.invalid">Save
+                                Changes</button>
+                            <button type="button" class="btn btn-secondary me-2"
+                                (click)="toggleEditMode()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Display buttons only when not in edit mode -->
+                <div class="card-body" *ngIf="!showEditMode && isOwner()">
+                    <button class="btn btn-secondary me-2" (click)="toggleEditMode()">Edit</button>
+                    <button class="btn btn-danger me-2" (click)="deleteLocation(location._id!)">Delete</button>
                 </div>
             </div>
         </div>
