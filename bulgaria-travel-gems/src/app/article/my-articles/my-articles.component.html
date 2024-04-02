@@ -1,25 +1,15 @@
-<div class="container">
-    <h1>My Added Articles</h1>
-    <div *ngIf="myArticles$ | async as articles" class="row">
+div class="main-container">
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h1>My Added Articles</h1>
+        </div>
+    </div>
+    <div *ngIf="(myArticles$ | async) as articles" class="row row-cols-1 row-cols-md-3 g-4">
         <ng-container *ngIf="articles.length > 0; else noArticlesTemplate">
-            <div *ngFor="let article of articles" class="card" style="width: 25rem;">
-                <div class="image-container" style="width: 25rem;">
-                    <img src="{{article.imageUrl}}" class="card-img-top" alt="...">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{article.title | slice : 40}}</h5>
-                    <div class="card-subtitle mb-2 text-muted">
-                        <span><i class='fas fa-map-marker-alt' style='font-size:24px;color:orangered'
-                                routerLink="/locations/{{article.locationId}}"></i>
-                            {{ article.locationId | locationNameFromId | async }}</span>
-                        <span class="text-right" style="float:right;">Added {{article._createdOn! | elapsedTime}}</span>
-                    </div>
-                    <p class="card-text">{{article.content | slice: 95}}</p>
-                    <div class="buttons-container">
-                        <a [routerLink]="article._id" class="btn btn-primary">Read more</a>
-                        <app-heart-toggle class="like" />
-                    </div>
-                </div>
+            <div class="col" *ngFor="let article of articles">
+                <app-article-item [article]="article" [currentUser]="currentUser"
+                    (likeToggled)="onToggleLike($event)"></app-article-item>
             </div>
         </ng-container>
     </div>

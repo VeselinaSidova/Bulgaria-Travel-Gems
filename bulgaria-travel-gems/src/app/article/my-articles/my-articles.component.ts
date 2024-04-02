@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Article } from 'src/app/types/article';
 import { ArticleService } from '../article.service';
+import { UserService } from 'src/app/user/user.service';
 
 @Component({
   selector: 'app-my-articles',
@@ -13,7 +14,10 @@ export class MyArticlesComponent implements OnInit {
   hasArticles = false;
   currentUser: any;
 
-  constructor(private articleService: ArticleService) {}
+  constructor(
+    private articleService: ArticleService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     const userDataJson = localStorage.getItem('user_data');
@@ -32,5 +36,12 @@ export class MyArticlesComponent implements OnInit {
         })
       );
     }
+  }
+
+  onToggleLike(articleId: string): void {
+    this.userService.toggleLikedArticle(articleId).subscribe({
+      next: (user) => {},
+      error: (error) => console.error('Error toggling liked article:', error),
+    });
   }
 }
