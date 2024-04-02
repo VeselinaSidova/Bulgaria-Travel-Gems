@@ -8,6 +8,7 @@ import { LocationDetailsComponent } from './location-details/location-details.co
 import { AddLocationComponent } from './add-location/add-location.component';
 import { SharedModule } from '../shared/shared.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LocationItemComponent } from './location-item/location-item.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     LocationsWishlistComponent,
     LocationDetailsComponent,
     AddLocationComponent,
+    LocationItemComponent,
   ],
   imports: [
     CommonModule,
