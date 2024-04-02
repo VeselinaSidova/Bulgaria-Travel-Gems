@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticleService } from '../article.service';
@@ -29,7 +29,8 @@ export class ArticleDetailsComponent implements OnInit {
     private articleService: ArticleService,
     private locationService: LocationService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private changeDetector: ChangeDetectorRef
   ) {
     this.form = this.fb.group({
       title: [
@@ -112,8 +113,9 @@ export class ArticleDetailsComponent implements OnInit {
       .updateArticle(this.articleId!, title!, imageUrl!, locationId!, content!)
       .subscribe({
         next: () => {
-          this.article = { title, imageUrl, locationId, content };
+          this.fetchArticle(this.articleId!);
           this.toggleEditMode();
+          this.changeDetector.detectChanges();
         },
         error: (error) => console.error('Error updating article:', error),
       });
