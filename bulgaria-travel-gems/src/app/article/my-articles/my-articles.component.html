@@ -1,11 +1,10 @@
-div class="main-container">
 <div class="container my-5">
     <div class="row">
         <div class="col-12 text-center mb-4">
             <h1>My Added Articles</h1>
         </div>
     </div>
-    <div *ngIf="(myArticles$ | async) as articles" class="row row-cols-1 row-cols-md-3 g-4">
+    <div *ngIf="(myArticles$ | async) as articles; else noArticlesTemplate" class="row row-cols-1 row-cols-md-3 g-4">
         <ng-container *ngIf="articles.length > 0; else noArticlesTemplate">
             <div class="col" *ngFor="let article of articles">
                 <app-article-item [article]="article" [currentUser]="currentUser"
@@ -14,7 +13,8 @@ div class="main-container">
         </ng-container>
     </div>
     <ng-template #noArticlesTemplate>
-        <p class="text-center">No articles to display. Start by <a routerLink="/add-article">adding a new article!</a>
+        <p class="text-center">No articles to display. Start by <a routerLink="/add-article">adding a new
+                article!</a>
         </p>
     </ng-template>
 </div>

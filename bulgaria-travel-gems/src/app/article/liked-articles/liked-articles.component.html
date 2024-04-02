@@ -1,21 +1,19 @@
-<div class="main-container">
-    <div class="container my-5">
-        <div class="row">
-            <div class="col-12 text-center mb-4">
-                <h1>My Liked Articles</h1>
-            </div>
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12 text-center mb-4">
+            <h1>My Liked Articles</h1>
         </div>
-        <div *ngIf="(likedArticles$ | async) as likedArticles; else noArticlesTemplate"
-            class="row row-cols-1 row-cols-md-3 g-4">
-            <ng-container *ngIf="likedArticles.length > 0; else noArticlesTemplate">
-                <div class="col" *ngFor="let article of likedArticles">
-                    <app-article-item [article]="article" [currentUser]="currentUser"
-                        (likeToggled)="onToggleLike($event)">
-                    </app-article-item>
-                </div>
-            </ng-container>
-        </div>
-        <ng-template #noArticlesTemplate>
-            <p class="text-center">No articles liked yet. Explore articles <a routerLink="/articles">here</a>.</p>
-        </ng-template>
     </div>
+    <div *ngIf="(likedArticles$ | async) as likedArticles; else noArticlesTemplate"
+        class="row row-cols-1 row-cols-md-3 g-4">
+        <ng-container *ngIf="likedArticles.length > 0; else noArticlesTemplate">
+            <div class="col" *ngFor="let article of likedArticles">
+                <app-article-item [article]="article" [currentUser]="currentUser" (likeToggled)="onToggleLike($event)">
+                </app-article-item>
+            </div>
+        </ng-container>
+    </div>
+    <ng-template #noArticlesTemplate>
+        <p class="text-center">No articles liked yet. Explore articles <a routerLink="/articles">here</a>.</p>
+    </ng-template>
+</div>
