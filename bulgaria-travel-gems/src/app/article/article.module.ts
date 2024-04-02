@@ -8,6 +8,7 @@ import { ArticleRoutingModule } from './article-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ArticleItemComponent } from './article-item/article-item.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ArticlesListComponent,
     MyArticlesComponent,
     LikedArticlesComponent,
+    ArticleItemComponent,
   ],
   imports: [
     CommonModule,
