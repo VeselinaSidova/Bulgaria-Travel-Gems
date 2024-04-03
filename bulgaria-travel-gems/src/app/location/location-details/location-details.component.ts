@@ -142,7 +142,7 @@ export class LocationDetailsComponent implements OnInit, OnDestroy {
   }
 
   deleteLocation(id: string): void {
-    if (confirm('Are you sure you want to delete this article?')) {
+    if (confirm('Are you sure you want to delete this location?')) {
       this.subscriptions.add(
         this.locationService.deleteLocation(id).subscribe({
           next: () => {
