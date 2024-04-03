@@ -28,7 +28,7 @@ Table of Contents
 ## Installation
 To run the project locally, follow these steps:
 
-- Clone the repository:
+- Clone the repository
 - Navigate to the project directory using a new terminal: "cd bulgaria-travel-gems"
 - Install the required dependencies using "npm install"
 - Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. 
@@ -37,4 +37,4 @@ To run the project locally, follow these steps:
 
 
 ## Usage
-Visit the application URL and register as a user. After registration, you'll be able to view, add, edit, and delete locations and read, add, edit, and delete articles. You will also be able to add articles to your favorites, using the "heart" button.
+Visit the application URL and register as a user. After registration, you'll be able to view, add, edit, and delete locations and articles. You will also be able to add articles to your favorites, using the "heart" button.
