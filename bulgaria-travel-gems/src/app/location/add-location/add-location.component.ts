@@ -6,6 +6,7 @@ import { urlValidator } from 'src/app/shared/utils/url-validator';
 import { Region } from 'src/app/types/region.enum';
 import { Province } from 'src/app/types/province.enum';
 import { regionProvinceMapping } from 'src/app/types/region-province-mapping';
+import { enumValidator } from 'src/app/shared/utils/enum-validator';
 
 @Component({
   selector: 'app-add-location',
@@ -19,9 +20,15 @@ export class AddLocationComponent implements OnInit {
       [Validators.required, Validators.minLength(2), Validators.maxLength(30)],
     ],
     imageUrl: ['', [Validators.required, urlValidator()]],
-    region: ['', [Validators.required]],
-    province: [{ value: '', disabled: true }, [Validators.required]],
-    distanceFromCapital: ['', [Validators.required]],
+    region: ['', [Validators.required, enumValidator(Region)]],
+    province: [
+      { value: '', disabled: true },
+      [Validators.required, enumValidator(Province)],
+    ],
+    distanceFromCapital: [
+      '',
+      [Validators.required, Validators.min(1), Validators.max(650)],
+    ],
     description: [
       '',
       [
