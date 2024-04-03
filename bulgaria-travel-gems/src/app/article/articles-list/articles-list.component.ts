@@ -39,7 +39,7 @@ export class ArticlesListComponent implements OnInit, OnDestroy {
         this.hasArticles = articles.length > 0;
       },
       error: (error) => {
-        console.error('Error fetching articles:', error);
+        console.error('Error fetching articles from server:', error);
         this.hasArticles = false;
       },
     });

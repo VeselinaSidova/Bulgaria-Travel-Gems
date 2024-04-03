@@ -24,7 +24,7 @@ export class LocationsListComponent implements OnInit {
         this.hasLocations = locations.length > 0;
       },
       error: (error) => {
-        console.error('Error fetching articles:', error);
+        console.error('Error fetching locations from server:', error);
         this.hasLocations = false;
       },
     });
