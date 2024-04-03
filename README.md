@@ -3,7 +3,7 @@ This project is a single-page application (SPA) that allows users to view, add, 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
 
-![image](https://github.com/VeselinaSidova/Bulgaria-Travel-Gems/assets/83277433/5edf5d11-a7da-46c7-8064-5fbf068e3eb6)
+![image](https://github.com/VeselinaSidova/Bulgaria-Travel-Gems/assets/83277433/b13049db-75ab-40f7-b17b-1ca6b33de4b2)
 
 Table of Contents
 
