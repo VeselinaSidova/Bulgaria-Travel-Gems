@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription, map } from 'rxjs';
 import { LocationService } from '../location.service';
 import { UserService } from 'src/app/user/user.service';
 import { Location } from 'src/app/types/location';

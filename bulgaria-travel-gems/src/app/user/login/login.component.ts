@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { catchError, of } from 'rxjs';
+import { Subscription, catchError, of } from 'rxjs';
 import { UserService } from '../user.service';
 import { emailValidator } from 'src/app/shared/utils/email-validator';
 
@@ -10,7 +10,8 @@ import { emailValidator } from 'src/app/shared/utils/email-validator';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
+  private subscriptions = new Subscription();
   form: FormGroup;
   errorMessage: string | null = null;
 
@@ -33,20 +34,26 @@ export class LoginComponent {
 
     const { email, password } = this.form.value;
 
-    this.userService
-      .login(email, password)
-      .pipe(
-        catchError((error) => {
-          this.errorMessage = 'Email and/or password are not correct!';
-          return of({});
+    this.subscriptions.add(
+      this.userService
+        .login(email, password)
+        .pipe(
+          catchError((error) => {
+            this.errorMessage = 'Email and/or password are not correct!';
+            return of({});
+          })
+        )
+        .subscribe({
+          next: (response) => {
+            if (response && response.accessToken) {
+              this.router.navigate(['/']);
+            }
+          },
         })
-      )
-      .subscribe({
-        next: (response) => {
-          if (response && response.accessToken) {
-            this.router.navigate(['/']);
-          }
-        },
-      });
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

@@ -1,23 +1,26 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
-import { filter } from 'rxjs';
+import { Subscription, filter } from 'rxjs';
 
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css'],
 })
-export class FooterComponent implements OnInit {
+export class FooterComponent implements OnInit, OnDestroy {
+  private subscriptions = new Subscription();
   footerVisible = false;
 
   constructor(private router: Router) {}
 
   ngOnInit() {
-    this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.checkFooterVisibility();
-      });
+    this.subscriptions.add(
+      this.router.events
+        .pipe(filter((event) => event instanceof NavigationEnd))
+        .subscribe(() => {
+          this.checkFooterVisibility();
+        })
+    );
   }
 
   @HostListener('window:resize', [])
@@ -40,5 +43,9 @@ export class FooterComponent implements OnInit {
       contentHeight <= viewportHeight
         ? scrolled >= bottomOfPage
         : scrolled + viewportHeight >= contentHeight;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

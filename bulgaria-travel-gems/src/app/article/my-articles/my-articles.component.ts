@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subscription, map } from 'rxjs';
 import { Article } from 'src/app/types/article';
 import { ArticleService } from '../article.service';
 import { UserService } from 'src/app/user/user.service';
@@ -9,7 +9,8 @@ import { UserService } from 'src/app/user/user.service';
   templateUrl: './my-articles.component.html',
   styleUrls: ['./my-articles.component.css'],
 })
-export class MyArticlesComponent implements OnInit {
+export class MyArticlesComponent implements OnInit, OnDestroy {
+  private subscriptions = new Subscription();
   myArticles$!: Observable<Article[]>;
   hasArticles = false;
   currentUser: any;
@@ -39,9 +40,15 @@ export class MyArticlesComponent implements OnInit {
   }
 
   onToggleLike(articleId: string): void {
-    this.userService.toggleLikedArticle(articleId).subscribe({
-      next: (user) => {},
-      error: (error) => console.error('Error toggling liked article:', error),
-    });
+    this.subscriptions.add(
+      this.userService.toggleLikedArticle(articleId).subscribe({
+        next: (user) => {},
+        error: (error) => console.error('Error toggling liked article:', error),
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticleService } from '../article.service';
@@ -9,13 +9,15 @@ import { urlValidator } from 'src/app/shared/utils/url-validator';
 import { LocationValidators } from 'src/app/shared/utils/locationId-validator';
 import { User } from 'src/app/types/user';
 import { UserService } from 'src/app/user/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-article-details',
   templateUrl: './article-details.component.html',
   styleUrls: ['./article-details.component.css'],
 })
-export class ArticleDetailsComponent implements OnInit {
+export class ArticleDetailsComponent implements OnInit, OnDestroy {
+  private subscriptions = new Subscription();
   article: Article | null = null;
   locations: Location[] = [];
   articleId: string | null = null;
@@ -59,36 +61,44 @@ export class ArticleDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activeRoute.params.subscribe((params) => {
-      this.articleId = params['_id'];
+    this.subscriptions.add(
+      this.activeRoute.params.subscribe((params) => {
+        this.articleId = params['_id'];
 
-      this.fetchArticle(this.articleId!);
-    });
+        this.fetchArticle(this.articleId!);
+      })
+    );
 
     this.loadLocations();
 
-    this.userService.authState$.subscribe((state) => {
-      this.currentUser = state.user;
-    });
+    this.subscriptions.add(
+      this.userService.authState$.subscribe((state) => {
+        this.currentUser = state.user;
+      })
+    );
   }
 
   fetchArticle(articleId: string): void {
-    this.articleService.getArticleById(articleId).subscribe({
-      next: (article) => {
-        this.article = article;
-        this.form.patchValue(article);
-      },
-      error: () => this.router.navigate(['/not-found']),
-    });
+    this.subscriptions.add(
+      this.articleService.getArticleById(articleId).subscribe({
+        next: (article) => {
+          this.article = article;
+          this.form.patchValue(article);
+        },
+        error: () => this.router.navigate(['/not-found']),
+      })
+    );
   }
 
   loadLocations(): void {
-    this.locationService.getLocations().subscribe({
-      next: (locations) => {
-        this.locations = locations;
-      },
-      error: (error) => console.error('Error fetching locations:', error),
-    });
+    this.subscriptions.add(
+      this.locationService.getLocations().subscribe({
+        next: (locations) => {
+          this.locations = locations;
+        },
+        error: (error) => console.error('Error fetching locations:', error),
+      })
+    );
   }
 
   isOwner(): boolean {
@@ -109,28 +119,42 @@ export class ArticleDetailsComponent implements OnInit {
       return;
     }
     const { title, imageUrl, locationId, content } = this.form.value;
-    this.articleService
-      .updateArticle(this.articleId!, title!, imageUrl!, locationId!, content!)
-      .subscribe({
-        next: () => {
-          this.fetchArticle(this.articleId!);
-          this.toggleEditMode();
-          this.changeDetector.detectChanges();
-        },
-        error: (error) => console.error('Error updating article:', error),
-      });
+    this.subscriptions.add(
+      this.articleService
+        .updateArticle(
+          this.articleId!,
+          title!,
+          imageUrl!,
+          locationId!,
+          content!
+        )
+        .subscribe({
+          next: () => {
+            this.fetchArticle(this.articleId!);
+            this.toggleEditMode();
+            this.changeDetector.detectChanges();
+          },
+          error: (error) => console.error('Error updating article:', error),
+        })
+    );
   }
 
   deleteArticle(id: string): void {
     if (confirm('Are you sure you want to delete this article?')) {
-      this.articleService.deleteArticle(id).subscribe({
-        next: () => {
-          this.router.navigate(['/articles']);
-        },
-        error: () => {
-          alert('There was an error deleting the article.');
-        },
-      });
+      this.subscriptions.add(
+        this.articleService.deleteArticle(id).subscribe({
+          next: () => {
+            this.router.navigate(['/articles']);
+          },
+          error: () => {
+            alert('There was an error deleting the article.');
+          },
+        })
+      );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

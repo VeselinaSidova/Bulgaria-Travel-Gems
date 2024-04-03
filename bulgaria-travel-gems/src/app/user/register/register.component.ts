@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { emailValidator } from 'src/app/shared/utils/email-validator';
 import { matchPasswordsValidator } from 'src/app/shared/utils/match-passwords.validator';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnDestroy {
+  private subscriptions = new Subscription();
   form = this.fb.group({
     firstName: [
       '',
@@ -48,8 +50,15 @@ export class RegisterComponent {
       email,
       passGroup: { password, rePassword } = {},
     } = this.form.value;
-    this.userService
-      .register(firstName!, lastName!, email!, password!, rePassword!)
-      .subscribe(() => this.router.navigate(['/login']));
+
+    this.subscriptions.add(
+      this.userService
+        .register(firstName!, lastName!, email!, password!, rePassword!)
+        .subscribe(() => this.router.navigate(['/login']))
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ArticleService } from '../article.service';
 import { Location } from 'src/app/types/location';
@@ -6,13 +6,15 @@ import { LocationService } from 'src/app/location/location.service';
 import { Router } from '@angular/router';
 import { urlValidator } from 'src/app/shared/utils/url-validator';
 import { LocationValidators } from 'src/app/shared/utils/locationId-validator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-add-article',
   templateUrl: './add-article.component.html',
   styleUrls: ['./add-article.component.css'],
 })
-export class AddArticleComponent implements OnInit {
+export class AddArticleComponent implements OnInit, OnDestroy {
+  private subscriptions = new Subscription();
   form = this.fb.group({
     title: [
       '',
@@ -47,14 +49,16 @@ export class AddArticleComponent implements OnInit {
   }
 
   loadLocations(): void {
-    this.locationService.getLocations().subscribe({
-      next: (locations) => {
-        this.locations = locations;
-      },
-      error: (error) => {
-        console.error('Error fetching locations:', error);
-      },
-    });
+    this.subscriptions.add(
+      this.locationService.getLocations().subscribe({
+        next: (locations) => {
+          this.locations = locations;
+        },
+        error: (error) => {
+          console.error('Error fetching locations:', error);
+        },
+      })
+    );
   }
 
   addArticle(): void {
@@ -63,10 +67,16 @@ export class AddArticleComponent implements OnInit {
     }
     const { title, imageUrl, locationId, content } = this.form.value;
 
-    this.articleService
-      .addArticle(title!, imageUrl!, locationId!, content!)
-      .subscribe(() => {
-        this.router.navigate(['/articles']);
-      });
+    this.subscriptions.add(
+      this.articleService
+        .addArticle(title!, imageUrl!, locationId!, content!)
+        .subscribe(() => {
+          this.router.navigate(['/articles']);
+        })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

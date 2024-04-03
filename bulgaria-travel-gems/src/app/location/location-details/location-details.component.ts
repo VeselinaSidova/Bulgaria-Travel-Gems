@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocationService } from '../location.service';
 import { Location } from 'src/app/types/location';
@@ -9,13 +9,15 @@ import { urlValidator } from 'src/app/shared/utils/url-validator';
 import { Region } from 'src/app/types/region.enum';
 import { Province } from 'src/app/types/province.enum';
 import { regionProvinceMapping } from 'src/app/types/region-province-mapping';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-location-details',
   templateUrl: './location-details.component.html',
   styleUrls: ['./location-details.component.css'],
 })
-export class LocationDetailsComponent implements OnInit {
+export class LocationDetailsComponent implements OnInit, OnDestroy {
+  private subscriptions = new Subscription();
   location: Location | null = null;
   locationId: string | null = null;
   currentUser: Omit<User, 'password'> | null = null;
@@ -57,39 +59,45 @@ export class LocationDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.activeRoute.params.subscribe((params) => {
-      this.locationId = params['_id'];
+    this.subscriptions.add(
+      this.activeRoute.params.subscribe((params) => {
+        this.locationId = params['_id'];
 
-      this.fetchLocation(this.locationId!);
-    });
+        this.fetchLocation(this.locationId!);
+      })
+    );
 
     this.userService.authState$.subscribe((state) => {
       this.currentUser = state.user;
     });
 
-    this.form
-      .get('region')!
-      .valueChanges.subscribe((selectedRegion: string | null) => {
-        if (selectedRegion) {
-          const region = selectedRegion as Region;
-          this.provinces = regionProvinceMapping[region];
-          this.form.get('province')!.enable();
-        } else {
-          this.provinces = [];
-          this.form.get('province')!.disable();
-        }
-        this.form.get('province')!.setValue('');
-      });
+    this.subscriptions.add(
+      this.form
+        .get('region')!
+        .valueChanges.subscribe((selectedRegion: string | null) => {
+          if (selectedRegion) {
+            const region = selectedRegion as Region;
+            this.provinces = regionProvinceMapping[region];
+            this.form.get('province')!.enable();
+          } else {
+            this.provinces = [];
+            this.form.get('province')!.disable();
+          }
+          this.form.get('province')!.setValue('');
+        })
+    );
   }
 
   fetchLocation(locationId: string): void {
-    this.locationService.getLocationById(locationId).subscribe({
-      next: (location) => {
-        this.location = location;
-        this.form.patchValue(location);
-      },
-      error: () => this.router.navigate(['/not-found']),
-    });
+    this.subscriptions.add(
+      this.locationService.getLocationById(locationId).subscribe({
+        next: (location) => {
+          this.location = location;
+          this.form.patchValue(location);
+        },
+        error: () => this.router.navigate(['/not-found']),
+      })
+    );
   }
 
   isOwner(): boolean {
@@ -112,32 +120,40 @@ export class LocationDetailsComponent implements OnInit {
       distanceFromCapital,
       description,
     } = this.form.value;
-    this.locationService
-      .updateLocation(
-        this.location!._id!,
-        name!,
-        imageUrl!,
-        region!,
-        province!,
-        distanceFromCapital!,
-        description!
-      )
-      .subscribe({
-        next: () => {
-          this.fetchLocation(this.locationId!);
-          this.toggleEditMode();
-          this.changeDetector.detectChanges();
-        },
-      });
+    this.subscriptions.add(
+      this.locationService
+        .updateLocation(
+          this.location!._id!,
+          name!,
+          imageUrl!,
+          region!,
+          province!,
+          distanceFromCapital!,
+          description!
+        )
+        .subscribe({
+          next: () => {
+            this.fetchLocation(this.locationId!);
+            this.toggleEditMode();
+            this.changeDetector.detectChanges();
+          },
+        })
+    );
   }
 
   deleteLocation(id: string): void {
     if (confirm('Are you sure you want to delete this article?')) {
-      this.locationService.deleteLocation(id).subscribe({
-        next: () => {
-          this.router.navigate(['/locations']);
-        },
-      });
+      this.subscriptions.add(
+        this.locationService.deleteLocation(id).subscribe({
+          next: () => {
+            this.router.navigate(['/locations']);
+          },
+        })
+      );
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }
