@@ -38,4 +38,4 @@ To run the project locally, follow these steps:
 
 
 ## Usage
-Visit the application URL and register as a user. After registration, you'll be able to view, add, edit, and delete locations and add, edit, and delete articles. You will also be able to add articles to your favorites, using the "heart" button.
+Visit the application URL and register as a user. After registration, you'll be able to view, add, edit, and delete locations and read, add, edit, and delete articles. You will also be able to add articles to your favorites, using the "heart" button.
