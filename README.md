@@ -19,7 +19,7 @@ Table of Contents
 * Edit and delete location records
 * Read, add, edit, and delete articles for specific locations
   
- ![image](https://github.com/VeselinaSidova/Bulgaria-Travel-Gems/assets/83277433/b7a43590-8cdd-49d8-981e-1dcfd83e3589)
+![image](https://github.com/VeselinaSidova/Bulgaria-Travel-Gems/assets/83277433/f1a2340a-2b87-46fb-b324-325a43d6ce38)
 
 * View a list of your favorite articles
 * View and manage your personal contributions (articles and locations)
