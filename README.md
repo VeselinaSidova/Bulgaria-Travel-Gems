@@ -12,12 +12,11 @@ Table of Contents
    3. [Usage](#usage)
 
 ## Features
-* View information about travel locations in Bulgaria
+* View information about travel locations in Bulgaria. Edit and delete location records
   
 ![image](https://github.com/VeselinaSidova/Bulgaria-Travel-Gems/assets/83277433/ca2a4a23-6bca-4a70-8b25-ac0570556efc)
 
-* Edit and delete location records
-* Read, add, edit, and delete articles for specific locations
+* View, add, edit, and delete articles for specific locations
   
 ![image](https://github.com/VeselinaSidova/Bulgaria-Travel-Gems/assets/83277433/e154c4ae-12f2-458f-a505-ce3ab9252f43)
 
