@@ -31,7 +31,7 @@ To run the project locally, follow these steps:
 - Clone the repository
 - Navigate to the project directory using a new terminal: "cd bulgaria-travel-gems"
 - Install the required dependencies using "npm install"
-- Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. 
+- Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`
 - Open a new terminal and navigate to: "cd server"
 - Start the practice server by typing: "node ./server.js"
 
