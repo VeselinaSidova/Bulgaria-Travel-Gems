@@ -61,7 +61,8 @@ export class UserService {
     firstName: string,
     lastName: string,
     email: string,
-    password: string
+    password: string,
+    rePassword: string
   ): Observable<User> {
     return this.apiService.request(
       'POST',
@@ -71,6 +72,7 @@ export class UserService {
         lastName,
         email,
         password,
+        rePassword,
       }
     );
   }

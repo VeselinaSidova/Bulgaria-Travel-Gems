@@ -46,10 +46,10 @@ export class RegisterComponent {
       firstName,
       lastName,
       email,
-      passGroup: { password } = {},
+      passGroup: { password, rePassword } = {},
     } = this.form.value;
     this.userService
-      .register(firstName!, lastName!, email!, password!)
+      .register(firstName!, lastName!, email!, password!, rePassword!)
       .subscribe(() => this.router.navigate(['/login']));
   }
 }
