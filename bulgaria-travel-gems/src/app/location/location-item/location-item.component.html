@@ -7,7 +7,7 @@
         <h5 class="card-title">{{ location.name }}</h5>
         <p class="card-text flex-grow-1">{{ location.description | slice : 100 }}</p>
         <div>
-            <span class="badge bg-dark me-2">Provice: {{ location.province }}</span>
+            <span class="badge bg-dark me-2">Province: {{ location.province }}</span>
             <span class="badge bg-secondary">Region: {{ location.region }}</span>
         </div>
         <a [routerLink]="['/locations', location._id]" class="btn btn-primary mt-3 btn-discover-more">Discover More</a>

@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <h5 class="card-title text-center" routerLink="/locations/{{article.locationId}}">{{ article.title
                         }}</h5>
-                    <p *ngIf="!showEditMode" class="card-text">{{ article.content }}</p>
+                    <p *ngIf="!showEditMode" class="card-text pt-3">{{ article.content }}</p>
                     <div class="card-footer text-muted" *ngIf="!showEditMode">
                         <small>Posted on: {{ article._createdOn | date:'d MMMM y' }}</small>
                     </div>
@@ -83,6 +83,7 @@
                     <button class="btn btn-primary btn-discover-location me-2"
                         routerLink="/locations/{{article.locationId}}">Discover
                         location</button>
+                    <button class="btn btn-dark me-2" routerLink="/articles">Back to Articles</button>
                     <button *ngIf="isOwner()" class="btn btn-secondary me-2" (click)="toggleEditMode()">Edit</button>
                     <button *ngIf="isOwner()" class="btn btn-danger me-2"
                         (click)="deleteArticle(article._id!)">Delete</button>

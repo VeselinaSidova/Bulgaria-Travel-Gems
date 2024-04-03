@@ -102,9 +102,11 @@
                 </div>
 
                 <!-- Display buttons only when not in edit mode -->
-                <div class="card-body" *ngIf="!showEditMode && isOwner()">
-                    <button class="btn btn-secondary me-2" (click)="toggleEditMode()">Edit</button>
-                    <button class="btn btn-danger me-2" (click)="deleteLocation(location._id!)">Delete</button>
+                <div class="card-body" *ngIf="!showEditMode">
+                    <button class="btn btn-primary btn-back me-2" routerLink="/locations">Back to Locations</button>
+                    <button *ngIf="isOwner()" class="btn btn-secondary me-2" (click)="toggleEditMode()">Edit</button>
+                    <button *ngIf="isOwner()" class="btn btn-danger me-2"
+                        (click)="deleteLocation(location._id!)">Delete</button>
                 </div>
             </div>
         </div>

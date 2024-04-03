@@ -4,7 +4,7 @@
             routerLink="/articles/{{article._id}}">
     </div>
     <div class="card-body d-flex flex-column">
-        <h5 class="card-title">{{article.title | slice : 40}}</h5>
+        <h5 class="card-title">{{article.title | slice : 35}}</h5>
         <div class="card-subtitle mb-2 text-muted">
             <span routerLink="/locations/{{article.locationId}}"
                 *ngIf="(article.locationId | locationNameFromId | async) as locationName; else locationMissing">

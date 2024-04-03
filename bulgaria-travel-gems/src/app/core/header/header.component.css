@@ -6,6 +6,12 @@ nav.navbar {
   height: 50px;
   margin-right: 10px;
   vertical-align: middle;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.navbar-logo:hover {
+  transform: scale(1.1);
 }
 
 .navbar-brand {
