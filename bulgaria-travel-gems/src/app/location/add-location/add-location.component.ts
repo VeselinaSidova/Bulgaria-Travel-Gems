@@ -29,7 +29,7 @@ export class AddLocationComponent implements OnInit, OnDestroy {
     ],
     distanceFromCapital: [
       '',
-      [Validators.required, Validators.min(1), Validators.max(650)],
+      [Validators.required, Validators.min(0), Validators.max(650)],
     ],
     description: [
       '',
