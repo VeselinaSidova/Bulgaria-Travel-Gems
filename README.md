@@ -1,4 +1,4 @@
-# Bulgaria-Travel-Gems
+# Bulgaria Travel Gems
 This project is a single-page application (SPA) that allows users to view, add, and manage articles for locations in Bulgaria. It's built using Angular and a Softuni practice server as the backend. The goal of this project is to educate travel enthusiasts about the new and exciting places they can visit in Bulgaria, encourage explorers to share their experiences and motivate others to visit the locations, contributing to the cause of promoting Bulgarian tourism. 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.12.
